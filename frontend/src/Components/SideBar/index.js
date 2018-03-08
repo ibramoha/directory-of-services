@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Categories from "../Categories";
+import UsersMenu from '../Users/UsersMenu';
 import "./side-bar.css";
 
 const SideBar = () => (
@@ -9,6 +10,7 @@ const SideBar = () => (
       <Link to="/">LOGO</Link>
     </div>
     <Categories />
+    <UsersMenu />
   </nav>
 );
 

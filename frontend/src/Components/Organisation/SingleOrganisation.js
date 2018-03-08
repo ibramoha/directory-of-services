@@ -27,7 +27,6 @@ export default class SingleOrganisation extends Component {
           className="single-org-dialog"
           open={this.state.open}
           onClose={this.handleClose}
-          onRequestClose={this.handleClose}
         >
           <DialogActions>
             <button onClick={this.handleClose} className="single-oganisation-close-button">Close</button>

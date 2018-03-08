@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import OrganisationForm from './OrganisationForm';
 import './add-org.css';
+import TopNav from '../TopNav';
 
-export default class AddOrganisationForm extends Component {
+export default class AddOrganisation extends Component {
   state = {
     name: "",
     area: "",
@@ -32,7 +33,7 @@ export default class AddOrganisationForm extends Component {
     })
   }
 
-  updateField = event => {
+  updateNameField = event => {
     this.setState({
       [event.target.name]: event.target.value
     })
@@ -48,24 +49,27 @@ export default class AddOrganisationForm extends Component {
 
   render() {
     return (
-      <div className="add-orgonaization">
-        <h1>Add new orgonaization</h1>
-        <OrganisationForm
-          organisationNameValue={this.state.name}
-          areaValue={this.state.area}
-          boroughValue={this.state.borough}              
-          processValue={this.state.process}
-          dayValue={this.state.day}
-          telephoneValue={this.state.telephone}
-          emailValue={this.state.email}
-          websiteValue={this.state.website}
-          serviceValue={this.state.service}
+      <div>
+        <TopNav />
+        <div className="add-orgonaization">
+          <h1>Add new orgonaization</h1>
+          <OrganisationForm
+            name={this.state.name}
+            area={this.state.area}
+            borough={this.state.borough}
+            process={this.state.process}
+            day={this.state.day}
+            telephone={this.state.telephone}
+            email={this.state.email}
+            website={this.state.website}
+            service={this.state.service}
 
-          addContent="org-content"
-          onChange={this.updateField}
-          onChangeCheckbox={this.handleCheckbox}
-        />
-        <button className="add-orgonaization-link" onClick={event => this.handleSubmit(event)}>SAVE CHANGES</button>
+            formType="org-content"
+            onChange={this.updateNameField}
+            onChangeCheckbox={this.handleCheckbox}
+          />
+          <button className="add-orgonaization-link" onClick={event => this.handleSubmit(event)}>SAVE CHANGES</button>
+        </div>
       </div>
     )
   }

@@ -1,9 +1,8 @@
 import React from 'react';
 import { Link } from "react-router-dom";
-import './home.css';
-import UsersListTable from '../Users/UsersListTable.js';
+import './top-nav.css';
 
-const Home = () =>(
+const TopNav = () =>(
   <div>
     <div className="main-nav">
       <div>
@@ -13,10 +12,9 @@ const Home = () =>(
       <div className="login-section">
         <h4>Loggedin as <strong>Carmela</strong></h4>
       </div>
-    </div>
-    <UsersListTable />    
+    </div>   
   </div>
 );
 
 
-export default Home;
+export default TopNav;

@@ -1,14 +1,15 @@
 import React from 'react';
 import TextField from 'material-ui/TextField';
+import PropTypes from 'prop-types';
 
-const OrganisationForm = (props) =>(
-  <form className={props.addContent || props.editOrg}>
+const OrganisationForm = (props) => (
+  <form className={props.formType}>
     <div className="form-first-row edit-field">
       <TextField
         className="edit-orgnasiation-name"
         label="Organisation name"
         name="name"
-        value={props.organisationNameValue}
+        value={props.name}
         onChange={props.onChange}
         fullWidth
       />
@@ -18,36 +19,36 @@ const OrganisationForm = (props) =>(
           className="text-field"
           label="Area"
           name="area"
-          value={props.areaValue}
+          value={props.area}
           onChange={props.onChange}
           fullWidth
         />
-      </span>  
+      </span>
       <span className="text-field-two-container">
         <h6 className="not-include-in-add-org details-area">| Borough:</h6>
         <TextField
           className="text-field-two"
           label="Borough"
           name="borough"
-          value={props.boroughValue}
+          value={props.borough}
           onChange={props.onChange}
           fullWidth
         />
-      </span>  
+      </span>
       <h4 className="not-include-in-add-org health-advice-title">- Health advice
         <TextField
           className="not-include-in-add-org health-advice"
           fullWidth
           name="advices"
-          value={props.advicesValue}
+          value={props.advices}
           onChange={props.onChange}
         />
-      </h4>    
+      </h4>
       <TextField
         label="Process"
         className="edit-process-field"
         name="process"
-        value={props.processValue}
+        value={props.process}
         onChange={props.onChange}
         fullWidth
       />
@@ -55,7 +56,7 @@ const OrganisationForm = (props) =>(
         className="edit-day-field"
         label="Day"
         name="day"
-        value={props.dayValue}
+        value={props.day}
         onChange={props.onChange}
         fullWidth
       />
@@ -63,7 +64,7 @@ const OrganisationForm = (props) =>(
         className="telephone-label"
         label="Telephone"
         name="telephone"
-        value={props.telephoneValue}
+        value={props.telephone}
         onChange={props.onChange}
         fullWidth
       />
@@ -71,7 +72,7 @@ const OrganisationForm = (props) =>(
         className="email-label"
         label="Email"
         name="email"
-        value={props.emailValue}
+        value={props.email}
         onChange={props.onChange}
         fullWidth
       />
@@ -79,7 +80,7 @@ const OrganisationForm = (props) =>(
         className="website-label add-website-field"
         label="Website"
         name="website"
-        value={props.websiteValue}
+        value={props.website}
         onChange={props.onChange}
         fullWidth
       />
@@ -91,7 +92,7 @@ const OrganisationForm = (props) =>(
         label="Service"
         fullWidth
         name="service"
-        value={props.serviceValue}
+        value={props.service}
         onChange={props.onChange}
       />
     </div>
@@ -135,7 +136,9 @@ const OrganisationForm = (props) =>(
       </label>
     </div>
   </form >
-);  
+);
 
-
+OrganisationForm.propTypes = {
+  formType: PropTypes.string.isRequired,
+};
 export default OrganisationForm;

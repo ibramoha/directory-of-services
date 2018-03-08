@@ -42,7 +42,7 @@ export default class Categories extends Component {
             <Link to="/services/healthcare">Healthcare</Link>
           </li>
           <li>
-            <Link to="/womendv">Women DV</Link>
+            <Link to="/services/womendv">Women DV</Link>
           </li>
         </ul>
       );

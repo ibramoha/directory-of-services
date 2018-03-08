@@ -7,7 +7,7 @@ import {
   TableRow,
 } from 'material-ui/Table';
 import Button from 'material-ui/Button';
-import './user.css';
+import './user-table.css';
 import UsersTableHead from './UsersTableHead';
 
 let counter = 0;

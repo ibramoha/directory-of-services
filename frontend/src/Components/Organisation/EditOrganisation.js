@@ -45,7 +45,7 @@ export default class EditOrganisation extends React.Component {
     });
   }
 
-  updateField = e => {
+  updateNameField = e => {
     this.setState({
       [e.target.name]: e.target.value
     });
@@ -73,18 +73,18 @@ export default class EditOrganisation extends React.Component {
             <span className="edit-logo">Editing</span>
             <OrganisationForm
               
-              organisationNameValue={this.state.name}
-              areaValue={this.state.area}
-              boroughValue={this.state.borough}
-              advicesValue={this.state.advices}
-              processValue={this.state.process}
-              dayValue={this.state.day}
-              telephoneValue={this.state.telephone}
-              emailValue={this.state.email}
-              websiteValue={this.state.website}
+              name={this.state.name}
+              area={this.state.area}
+              borough={this.state.borough}
+              advices={this.state.advices}
+              process={this.state.process}
+              day={this.state.day}
+              telephone={this.state.telephone}
+              email={this.state.email}
+              website={this.state.website}
 
-              editOrg="edit-org"
-              onChange={this.updateField}
+              formType="edit-org"
+              onChange={this.updateNameField}
               onChangeCheckbox={this.handleCheckbox}
             />
           </DialogContent>
