@@ -1,128 +1,74 @@
 .landing-page{
-
   display: flex;
-
   background: #484545;
-
   justify-content: center;
-
   align-items: center;
-
   width: 100%;
-
   height: 100%;
-
   text-align: center;
-
   position: fixed;
-
   height: 100vh;
-
   z-index: 4;
-
 }
 
 .landing-page h1{
-
   font-size: 3em;
-
   font-weight: normal;
-
   color: #95999c;
-
   padding: .5em 0;
-
 }
 
 .landing-page .content{
-
   display: flex;
-
   justify-content: center;
-
   align-items: center;
-
   background: #fff;
-
   flex-direction: column;
-
   width: 30em;
-
   height: 15.5em;
-
 }
 
 .content>a{
   text-decoration: none;
 }
+
 .landing-page .content h3{
-
-    margin-bottom: 2em;
-
-    font-size: 1.5em;
-
-    color: #343332;
-
+  margin-bottom: 2em;
+  font-size: 1.5em;
+  color: #343332;
 }
 
 .landing-page .content .google-sign{
-
 	display: grid;
-
 	grid-template-columns: 1fr 4fr;
-
 	justify-content: center;
-
 	align-items: center;
-
 	align-items: center;
-
 	border: 1.5px solid #4f7cbd;
-
 	margin: 0 3em 0 3em;
-
 	height: 4em;
-
 	box-shadow: 0px 3px 7px 1px #4f7cbd;
-
 }
 
 .landing-page .content .google-sign .google-logo{
-
-  	height: 100%;
-
-    width: 100%;
-
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .landing-page .content .google-sign .google-logo img{
-
     width: 40%;
-
 }
 
 .landing-page .content .google-sign .google-title{
-
     width: 100%;
-
     height: 100%;
-
     background: #4f7cbd;
-
     color: #fff;
-
     font-size: 1.5em;
-
     display: flex;
-
     align-items: center;
-
     justify-content: center;
-
 }
