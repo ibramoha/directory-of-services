@@ -1,4 +1,4 @@
-import { LIST_OF_CATEGORIES, LIST_OF_BOROUGHS, LIST_OF_AREAS, FILTERED_BRANCHS_BY_CATEGORY, LIST_OF_ORGANISATIONS} from '../actions/types';
+import { LIST_OF_CATEGORIES, LIST_OF_BOROUGHS, LIST_OF_AREAS, FILTERED_BRANCHS_BY_CATEGORY, LIST_OF_ORGANISATIONS, LIST_OF_USERS} from '../actions/types';
 
 export function categoriesList(state = [], action = {}) {
   switch (action.type) {
@@ -47,5 +47,15 @@ export function organisationsList(state = [], action = {}){
       areas: action.organisations
     }
    default: return state;
+  }
+}
+
+export function listOfUsers (state = [], action = {}){
+  switch (action.type) {
+    case LIST_OF_USERS:
+    return {
+      users: action.users
+    }
+    default: return state;
   }
 }

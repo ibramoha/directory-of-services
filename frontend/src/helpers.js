@@ -166,6 +166,19 @@ function validEmail(email) {
   return false;
 }
 
+function sortArrObj(a, b) {
+  // Use toUpperCase() to ignore character casing
+  const nameA = a.org_name.toUpperCase();
+  const nameB = b.org_name.toUpperCase();
+
+  let comparison = 0;
+  if (nameA > nameB) {
+    comparison = 1;
+  } else if (nameA < nameB) {
+    comparison = -1;
+  }
+  return comparison;
+}
 export default {
   renderInput,
   renderSuggestion,
@@ -177,6 +190,7 @@ export default {
   categoryNameMaker,
   addSpace,
   addSpaceToCategName,
-  validEmail
+  validEmail,
+  sortArrObj
 };
 

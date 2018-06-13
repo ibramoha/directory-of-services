@@ -129,18 +129,8 @@ class SignUpForm extends Component {
     if (!err) {
       this.props.signup(data).then(user => {
         if (user.data && user.data.success !== false) {
-          this.context.router.history.push('/')
           this.savedChangesSuccessfully(user.data.message);
-          this.setState({
-            fullname: '',
-            organisation: '',
-            email: '',
-            emailError: '',
-            password: '',
-            passwordError: '',
-            confirmPassword: '',
-            confirmPasswordError: '',
-          });
+          setTimeout(() => this.props.redirectToLogin(), 1000)
         } else {
           this.setState({ userVerification: user.data.message })
           this.failedSavedChanges(user.data.message);

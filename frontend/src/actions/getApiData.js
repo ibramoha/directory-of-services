@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { LIST_OF_CATEGORIES, LIST_OF_BOROUGHS, LIST_OF_AREAS, FILTERED_BRANCHS_BY_CATEGORY,  LIST_OF_ORGANISATIONS } from './types';
+import { LIST_OF_CATEGORIES, LIST_OF_BOROUGHS, LIST_OF_AREAS, FILTERED_BRANCHS_BY_CATEGORY,  LIST_OF_ORGANISATIONS, LIST_OF_USERS } from './types';
 
 
 const api = process.env.REACT_APP_API_URL || process.env.REACT_APP_LOCALHOST_API_URL;
@@ -74,3 +74,17 @@ export function getOrganisationsList(){
   }
 }
 
+export function setListOfUsers(users) {
+  return{
+    type:LIST_OF_USERS,
+    users
+  }
+}
+
+export function getListOfUsers(){
+  return dispatch => {
+    axios.get(`${api}/users`)
+    .then(response => dispatch(setListOfUsers(response)))
+    .catch(error => error.response)
+  }
+}

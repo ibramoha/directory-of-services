@@ -125,7 +125,7 @@ class Organisations extends Component {
           handlePostCodeChange={this.handlePostCodeChange}
         />
         <Grid container className="organisation-page" spacing={24}>
-          {this.filterData(organisations).map((org, index) => {
+          {this.filterData(organisations.sort(helpers.sortArrObj)).map((org, index) => {
             const currentlyEditing = editIdx === index;
             return currentlyEditing ? (
               <Fragment>

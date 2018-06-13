@@ -26,7 +26,7 @@ export function login(data) {
         localStorage.setItem('jwtToken', token);
         setAuthorizationToken(token);
         if (res.data && res.data.user) {
-          dispatch(setCurrentUser(jwtDecode(token), res.data.user[0]));
+          dispatch(setCurrentUser(jwtDecode(token)));
         }
         return res
       }

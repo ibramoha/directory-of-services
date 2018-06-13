@@ -1,29 +1,24 @@
 import React, { Component, Fragment } from 'react';
+import PropTypes from 'prop-types';
 import { Redirect } from 'react-router';
-
+import { connect } from 'react-redux';
 import NotificationSystem from 'react-notification-system';
+import { getListOfUsers} from '../../actions/getApiData';
 import TopNav from '../TopNav';
 import AddUser from './AddUser';
-// import SignUpForm from './signUp';
 import UsersListTable from './UsersListTable';
 import usersData from './usersData.json';
 
 import './users.css';
 
-export default class UsersPage extends Component {
+class UsersPage extends Component {
   state = {
-    fullName: '',
+    fullname: '',
     organisation: '',
     role: '',
     notificationSystem: null,
     hideForm: null,
   };
-
-  componentDidMount() {
-    this.setState({
-      notificationSystem: this.refs.savedChanges,
-    });
-  }
 
   savedChangesSuccessfully = () => {
     this.state.notificationSystem.addNotification({
@@ -51,7 +46,7 @@ export default class UsersPage extends Component {
     e.preventDefault();
     this.addNewUserHandler();
     this.setState({
-      fullName: '',
+      fullname: '',
       organisation: '',
       role: '',
     });
@@ -60,7 +55,7 @@ export default class UsersPage extends Component {
 
   addNewUserHandler = () => {
     usersData.unshift({
-      name: this.state.fullName,
+      fullname: this.state.fullname,
       organisation: this.state.organisation,
       role: this.state.role,
     });
@@ -72,6 +67,7 @@ export default class UsersPage extends Component {
     });
     
   render() {
+    const users = this.props.listOfUsers.users ? this.props.listOfUsers.users.data : [] ;
     let userForm;
     const { params } = this.props.match;
     const { hideForm } = this.state;
@@ -85,7 +81,7 @@ export default class UsersPage extends Component {
           <AddUser
             handleSubmit={this.handleSubmit}
             handleFieldUpdate={this.handleFieldUpdate}
-            fullName={this.state.fullName}
+            fullname={this.state.fullname}
             organisation={this.state.organisation}
             role={this.state.role}
             savedChangesSuccessfully={this.savedChangesSuccessfully}
@@ -99,9 +95,26 @@ export default class UsersPage extends Component {
         <TopNav title="USERS" addLink="users/add" titleLink="users" />
         {userForm}
         <NotificationSystem ref="savedChanges" />
-        <UsersListTable />
+        <UsersListTable usersList={users} />
         {hideForm ? <Redirect to="/users" /> : null}
       </div>
     );
   }
 }
+
+
+function mapStateToProps (state) {
+  return {
+    listOfUsers:state.listOfUsers
+  }
+}
+
+UsersPage.PropsTypes = {
+  listOfUsers: PropTypes.array.isRequired,
+}
+
+UsersPage.contextTypes = {
+  router: PropTypes.object.isRequired,
+}
+
+export default connect(mapStateToProps, { getListOfUsers })(UsersPage);

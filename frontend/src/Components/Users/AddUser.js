@@ -13,8 +13,8 @@ const AddUser = props => (
       <TextField
         label="Full name"
         className="full-name"
-        name="fullName"
-        value={props.fullName}
+        name="fullname"
+        value={props.fullname}
         onChange={props.handleFieldUpdate}
       />
       <TextField
@@ -22,13 +22,6 @@ const AddUser = props => (
         className="email"
         name="organisation"
         value={props.organisation}
-        onChange={props.handleFieldUpdate}
-      />
-      <TextField
-        className="email"
-        label="Email"
-        name="email"
-        value={props.email}
         onChange={props.handleFieldUpdate}
       />
       <FormControl className="form-control-filed">

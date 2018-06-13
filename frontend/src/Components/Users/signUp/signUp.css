@@ -7,7 +7,7 @@
 .sign-up-page {
     margin: 0 auto;
     width: 358px;
-  margin-bottom: 4rem;
+    margin-bottom: 4rem;
 }
 
 .sign-up-page .form-card {
@@ -81,7 +81,7 @@ input[type="password"]:after:focus {
 }
 
 @media screen and (max-width:520px) {
-    .sign-up-page .form-card {
+    .sign-up-page {
         width: 70%;
     }
 }

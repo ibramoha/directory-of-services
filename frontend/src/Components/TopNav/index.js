@@ -91,7 +91,7 @@ class TopNav extends Component {
                 color="inherit"
                 noWrap
               >
-                Welcome {user}
+                {user}
               </Typography>
               <Button
                 onClick={this.showUserDropDown}
@@ -120,7 +120,7 @@ TopNav.contextTypes = {
 function mapStateToProps(state) {
   return {
     messages: state.flashMessages,
-    user: state.loginAuth.user.username,
+    user: state.loginAuth.user.fullname,
     categories: state.categoriesList
   }
 }

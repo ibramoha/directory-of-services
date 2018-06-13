@@ -66,6 +66,7 @@ exports.up = knex =>
       table.string('fullname');
       table.string('salt_password');
       table.date('last_updated');
+      table.string('role');
     });
 
 exports.down = knex =>

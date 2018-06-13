@@ -17,18 +17,17 @@ import Save from 'material-ui-icons/Save';
 import NotificationSystem from 'react-notification-system';
 import Notification from './Notification';
 
-import './user-table.css';
 import UsersTableHead from './UsersTableHead';
-import usersData from './usersData.json';
+import './user-table.css';
 
 export default class UsersListTable extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
       order: 'asc',
-      orderBy: 'name',
+      orderBy: 'fullname',
       selected: [],
-      data: usersData,
+      data: [],
       page: 0,
       rowsPerPage: 5,
       editIdx: -1,
@@ -36,10 +35,21 @@ export default class UsersListTable extends Component {
     };
   }
 
+  
   componentDidMount() {
     this.setState({
       notificationSystem: this.refs.savedChanges,
     });
+  }
+
+  componentWillReceiveProps (newProps) {
+    const users = newProps.usersList;
+    if(users) {
+      this.setState({
+        data: users,
+      })
+    }
+    
   }
 
   savedChangesSuccessfully = () => {
@@ -132,7 +142,6 @@ export default class UsersListTable extends Component {
     const { data, order, orderBy, selected, rowsPerPage, page } = this.state;
     const emptyRows = null;
     const { editIdx } = this.state;
-
     return (
       <Table className="users-table">
         <NotificationSystem ref="savedChanges" />
@@ -153,9 +162,9 @@ export default class UsersListTable extends Component {
                 <tr key={row.id}>
                   <TableCell className="user-text">
                     <TextField
-                      name="name"
+                      name="fullname"
                       onChange={e => this.handleUserDataChange(e, index)}
-                      value={row.name}
+                      value={row.fullname}
                     />
                   </TableCell>
                   <TableCell className="user-text">
@@ -180,15 +189,11 @@ export default class UsersListTable extends Component {
                           id: 'controlled-open-select',
                         }}
                       >
-                        <MenuItem value="">
+                        <MenuItem value="None">
                           <em>None</em>
                         </MenuItem>
-                        <MenuItem value={row.role}>{row.role}</MenuItem>
-                        {row.role === 'Editor' ? (
-                          <MenuItem value="Admin">Admin</MenuItem>
-                        ) : (
-                          <MenuItem value="Editor">Editor</MenuItem>
-                        )}
+                        <MenuItem value="Admin">Admin</MenuItem>
+                        <MenuItem value="Editor">Editor</MenuItem>
                       </Select>
                     </FormControl>
                   </TableCell>
@@ -206,17 +211,17 @@ export default class UsersListTable extends Component {
                 </tr>
               ) : (
                 <TableRow key={row.id}>
-                  <TableCell className="user-text">{row.name}</TableCell>
+                  <TableCell className="user-text">{row.fullname}</TableCell>
                   <Hidden xsDown>
                     <TableCell className="user-text">{row.organisation}</TableCell>
                   </Hidden>
-                  <TableCell className="user-text">{row.role}</TableCell>
+                  <TableCell className="user-text">{row.role? row.role : 'None'}</TableCell>
                   <TableCell className="user-text">
                     <Button onClick={() => this.startEditing(index)} raised>
                       <i className="material-icons">edit</i>
                     </Button>
                     <Notification
-                      value={row.name}
+                      value={row.fullname}
                       removeHandler={() => this.removeUser(index)}
                       title='USER'
                     />

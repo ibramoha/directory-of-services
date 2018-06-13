@@ -1,8 +1,8 @@
-import React, {Component, Fragment} from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import Button from 'material-ui/Button';
-import {connect} from 'react-redux';
-import {login} from '../../actions/loginActions';
+import { connect } from 'react-redux';
+import { login } from '../../actions/loginActions';
 import Login from './LoginForm';
 import SignUpForm from '../Users/signUp';
 import ForgotPassword from '../Users/forgot-password';
@@ -28,7 +28,7 @@ class LoginForm extends Component {
       emailErr: '',
       passwordErr: ''
     };
-    const {email, password} = this.state
+    const { email, password } = this.state
     if (!helpers.validEmail(email)) {
       isError = true;
       errors.emailErr = 'Please enter a valid email';
@@ -50,7 +50,7 @@ class LoginForm extends Component {
     });
   };
 
-  handleLogin = async(e) => {
+  handleLogin = async (e) => {
     e.preventDefault();
     const errors = this.validation();
     const error = {
@@ -59,28 +59,16 @@ class LoginForm extends Component {
       authErr: ''
     };
     if (!errors) {
-      this.setState({isLoading: true});
-      try {
-        const user = await this
-          .props
-          .login(this.state)
+      this.setState({ isLoading: true });
+      this.props.login(this.state).then(user => {
         if (user && user.status && user.status === 200 && user.data.token) {
-          this
-            .context
-            .router
-            .history
-            .push('/home')
-            this.setState({
-              isLoading: false, errors: error,
-            });
+          this.context.router.history.push('/home')
+          this.setState({ isLoading: false, errors: error });
         } else {
           error.authErr = "Email or Password invalid"
-          this.setState({userVerification: error.authErr, isLoading: false, password: ''});
+          this.setState({ userVerification: error.authErr, isLoading: false, password: '' });
         }
-
-      } catch (err) {
-        return err
-      }
+      })
     }
   };
 
@@ -101,15 +89,23 @@ class LoginForm extends Component {
       userReset = true
       userSignup = false
     }
-    this.setState({login: userLogin, signup: userSignup, reset: userReset});
+    this.setState({ login: userLogin, signup: userSignup, reset: userReset });
   }
   handleBlur = e => {
     e.preventDefault();
-    this.setState({userVerification: ''});
+    this.setState({ userVerification: '' });
   };
 
+  redirectToLogin = () => {
+    this.setState({
+      login: true,
+      signup: false,
+      reset: false
+    })
+  }
+
   render() {
-    const {emailErr, passwordErr, authErr} = this.state.errors;
+    const { emailErr, passwordErr, authErr } = this.state.errors;
     if (this.state.isLoading) {
       return <Spinner color='white' bgColor='spinnerLogin' />;
     }
@@ -123,7 +119,7 @@ class LoginForm extends Component {
       email={this.state.email}
       passwordErr={passwordErr}
       emailErr={emailErr}
-      authErr={authErr} 
+      authErr={authErr}
     />);
     return (
       <Fragment>
@@ -132,15 +128,9 @@ class LoginForm extends Component {
           <Button onClick={() => this.switchPageHandler('signup')}>Register</Button>
           <Button onClick={() => this.switchPageHandler('reset')}>Reset</Button>
         </div>
-        {this.state.login
-          ? logins
-          : null}
-        {this.state.signup
-          ? <SignUpForm />
-          : null}
-        {this.state.reset
-          ? <ForgotPassword />
-          : null}
+        {this.state.login ? logins : null}
+        {this.state.signup ? <SignUpForm redirectToLogin={this.redirectToLogin} /> : null}
+        {this.state.reset ? <ForgotPassword /> : null}
       </Fragment>
     );
   }
@@ -153,4 +143,4 @@ LoginForm.contextTypes = {
   router: PropTypes.object.isRequired
 };
 
-export default connect(null, {login})(LoginForm);
+export default connect(null, { login })(LoginForm);
