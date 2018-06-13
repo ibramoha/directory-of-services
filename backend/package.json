@@ -8,8 +8,7 @@
     "migrate-prod": "./node_modules/.bin/knex migrate:latest --env production",
     "start": "npm run migrate && babel-node ./bin/www  --exec babel-node ",
     "dev": "npm run migrate && nodemon --exec babel-node ./bin/www",
-    "start-prod":
-      "git pull; pm2 kill; pm2 start --interpreter babel-node bin/www; pm2 logs",
+    "start-prod": "git pull; pm2 kill; pm2 start --interpreter babel-node bin/www; pm2 logs",
     "lint": "./node_modules/.bin/eslint **/*.js",
     "fix": "find ./node_modules/* -mtime +10950 -exec touch {} \\;"
   },
@@ -34,6 +33,7 @@
     "knex": "^0.14.4",
     "method-override": "^2.3.10",
     "morgan": "^1.9.0",
+    "node-fetch": "^2.1.2",
     "objection": "^1.0.0",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",

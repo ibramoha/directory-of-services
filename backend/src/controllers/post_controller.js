@@ -16,7 +16,7 @@ const postOrganisation = async (graph) => {
 const editOrganisation = async (graph, orgId, branchId) => {
   const options = {
     relate: ['branch', 'branch.address', 'branch.address.location', 'branch.service', 'branch.sercice.categories'],
-    noDelete: ['branch', 'branch.address', 'branch.address.location', 'branch.service', 'branch.sercice.categories'],
+    noDelete: ['branch', 'branch.address', 'branch.address.location', 'branch.service', 'branch.sercice.categories']
   };
 
   if (Array.isArray(graph)) {

@@ -17,6 +17,7 @@
       "padded-blocks": 0,
       "arrow-parens": 0,
       "linebreak-style": "off",
-      "no-param-reassign": "off"
+      "no-param-reassign": "off",
+      "no-restricted-syntax": "off"
     }
   }
