@@ -103,7 +103,7 @@ function getMainSearchSuggestions(value, suggestions) {
   const inputLength = inputValue.length;
   const filteredSugg = suggestions.filter((elem, index, self) =>
     index === self.findIndex(toDo =>
-      toDo.org_name === elem.org_name && toDo.borough === elem.borough
+      toDo.org_name === elem.org_name || toDo.borough === elem.borough
     ))
 
   return inputLength === 0
@@ -119,22 +119,11 @@ function getMainSearchSuggestions(value, suggestions) {
 function getSuggestions(value, organisations) {
   const inputValue = value.trim().toLowerCase();
   const inputLength = inputValue.length;
-  let count = 0;
-
   return inputLength === 0
     ? []
-    : organisations.filter(organisation => {
-      const keep =
-        count < 5 &&
-        organisation.postCode.toLowerCase().slice(0, inputLength) ===
-        inputValue;
-
-      if (keep) {
-        count += 1;
-      }
-
-      return keep;
-    });
+    : organisations.filter(organisation =>
+      organisation.postCode.toLowerCase().slice(0, inputLength) === inputValue
+    )
 }
 
 function SelectWrapped(props) {

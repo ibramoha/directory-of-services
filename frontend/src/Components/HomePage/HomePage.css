@@ -54,7 +54,7 @@ i{ cursor: pointer;}
 
 .search-input{
   display: grid;
-  grid-template-columns: 7fr 1.5fr 1.5fr;
+  grid-template-columns: 4.5fr 4.5fr 1fr;
   grid-gap: .7rem;
 }
 
@@ -64,3 +64,23 @@ i{ cursor: pointer;}
 
 button.btn-search,
 button.btn-search:hover { background: #1abcd4; }
+
+.postcode-field {
+  position: relative !important;
+  width: 100%;
+}
+
+.postcode-field .clear-postcode{
+  background: transparent;
+  border: navajowhite;
+  position: absolute;
+  cursor: pointer;
+  right: 0 ;
+  top: 0 ;
+}
+
+@media (max-width: 591px){
+  .search-input{
+    grid-template-columns: 1fr;
+  }
+}

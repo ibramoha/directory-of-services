@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Select from 'material-ui/Select';
 import Input, { InputLabel } from 'material-ui/Input';
@@ -10,6 +9,8 @@ import { FormControl, FormControlLabel } from 'material-ui/Form';
 import Checkbox from 'material-ui/Checkbox';
 import TextFieldOrg from './TextFieldOrg';
 import BoroughData from '../../Data/Boroughs.json';
+ // categories ---> static categories list stored locally  in data folder
+import categories from '../../Data/Categories.json';
 import helpers from '../../helpers';
 
 const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday', 'Mon-Fri', 'Mon', 'Tues', 'Wed', 'Thu', 'Fri'];
@@ -19,9 +20,8 @@ const sortedBorough = BoroughData.map(borough => borough.borough).filter((elem, 
 ).sort();
 
 const OrganisationForm = (props) => {
-  const categoriesName = props.categoriesName.categories ? props.categoriesName.categories : [];
-  const checkedCategory = helpers.addSpaceToCategName(categoriesName, props.checkedCategory);
-
+  const checkedCategory = helpers.addSpaceToCategName(categories, props.checkedCategory);
+  
 // I create a collection of days which combine days from days array and props.day and return unique value (no repetition of day )
 // then I made a copy of this collection using spread operator
   const uniqueDays= new Set([...days, ...props.day]);
@@ -231,7 +231,7 @@ const OrganisationForm = (props) => {
       </Grid>
       <h4 className="add-org-title categories-checkbox-title mt">Categories</h4>
       <div className="add-categories-checkbox categories-checkbox">
-        {categoriesName.map(category => helpers.linkMaker(category) === props.checkedCategory ?
+        {categories.map(category => helpers.linkMaker(category) === props.checkedCategory ?
           (
             <FormControlLabel
               className="checkbox"
@@ -267,9 +267,6 @@ const OrganisationForm = (props) => {
 }
 
 
-OrganisationForm.propTypes = {
-  categoriesName: PropTypes.array.isRequired
-};
 
 function mapStateToProps(state) {
   return {

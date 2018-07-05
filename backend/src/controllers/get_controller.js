@@ -57,13 +57,33 @@ module.exports = {
   },
 
   getBranchesByPostcode: async (categoryName, latInfo, longInfo) => {
+    // Get list of branches filtered by category name and postcode
+    if (categoryName) {
+      const latLongs = [];
+      try {
+        const result = await Organisation
+          .query()
+          .eagerAlgorithm(Organisation.JoinEagerAlgorithm)
+          .eager('[branch, branch.[address, address.[location] service, service.[categories]] ]')
+          .where('branch:service:categories.cat_name', 'like', `%${categoryName}%`)
+          .map(data => helpers.fetchNestedObj(data))
+          .map(data => {
+            const { lat, long } = data;
+            return latLongs.push({ lat, long, data })
+          })
+          .then(() => helpers.geoNear(latInfo, longInfo, latLongs))
+        return result;
+      } catch (error) {
+        return error;
+      }
+    }
+    // Get all branches filtered by only postcode
     const latLongs = [];
     try {
       const result = await Organisation
         .query()
         .eagerAlgorithm(Organisation.JoinEagerAlgorithm)
         .eager('[branch, branch.[address, address.[location] service, service.[categories]] ]')
-        .where('branch:service:categories.cat_name', 'like', `%${categoryName}%`)
         .map(data => helpers.fetchNestedObj(data))
         .map(data => {
           const { lat, long } = data;
