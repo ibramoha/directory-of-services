@@ -15,7 +15,7 @@
         <div className="user-page">
           <TopNav />
           <br />
-          <h2>My Aaccount Details</h2>
+          <h2>My Account Details</h2>
           <br />
           <br />
           <h4><strong>Full Name: </strong>{users.fullname}</h4>
