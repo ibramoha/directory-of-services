@@ -58,7 +58,8 @@ class SingleOrganisation extends Component {
           {org.org_name.length > 0 ? <h1> {org.org_name} </h1> : <h1 className="not-available"> Add organisation name ... </h1>}
           <h6 className="details-area">
             <span className="location-name">Area</span>: <span className="area">{org.area ? org.area : 'Add area ...'} </span> | {"  "}
-            <span className="location-name">Borough</span>: <span className="borough">{org.borough ? org.borough : 'Add borough ...'}</span>
+            <span className="location-name">Borough</span>: <span className="borough">{org.borough ? org.borough : 'Add borough ...'} | {"  "}</span>
+            <span className="location-name">Category</span>: <span className="borough">{org.cat_name ? org.cat_name : 'Add category ...'}</span>
           </h6>
 
           <div className="org-project org-contact">
@@ -74,19 +75,19 @@ class SingleOrganisation extends Component {
             </div>
           </div>
           <div className="org-service">
-            <h4>Services</h4> 
-            {org.service? <Fragment> <p className="service"> {org.service}</p></Fragment>: 
+            <h4>Services</h4>
+            {org.service? <Fragment> <p className="service"> {org.service}</p></Fragment>:
             <p className="not-available">{`${uiMessage}`} services ...</p>}
           </div>
 
           <div className="org-process">
             <div>
               <h4>Process</h4>
-              {org.process ? <Fragment><p className="service">{org.process.replace(/\s+/g, " ")} </p> </Fragment> 
+              {org.process ? <Fragment><p className="service">{org.process.replace(/\s+/g, " ")} </p> </Fragment>
                 :<p className="not-available">{`${uiMessage}`} process ...</p>}
             </div>
             <div>
-              <h4>Days</h4> 
+              <h4>Days</h4>
               {org.service_days? <Fragment><p>{org.service_days.split(' ').join(', ')}</p></Fragment>
                   :<p className="not-available">{`${uiMessage}`} days ...</p>}
             </div>
@@ -94,13 +95,13 @@ class SingleOrganisation extends Component {
 
           <div className="org-contact">
             <div>
-              <h4>Telephone</h4> 
+              <h4>Telephone</h4>
               {org.telephone && org.telephone !== "undefined"? <Fragment><p>{org.telephone}</p></Fragment>
                   :<p className="not-available" disable>{`${uiMessage}`} telephone...</p>}
             </div>
 
             <div>
-              <h4>Email</h4> 
+              <h4>Email</h4>
               {org.email_address? <Fragment><p>{org.email_address}</p></Fragment>
                   :<p className="not-available">{`${uiMessage}`} email ...</p>}
             </div>
@@ -120,7 +121,7 @@ class SingleOrganisation extends Component {
           <div className="org-service">
 
             <div>
-              <h4>Tags</h4> 
+              <h4>Tags</h4>
               {org.tag ?   <Fragment><p className="tag service"> <img src="https://png.icons8.com/material/15/666666/tag-window.png" alt="tag" /> {org.tag}</p></Fragment>
                 : <p className="not-available">  {`${uiMessage}`} tags... </p>}
             </div>
