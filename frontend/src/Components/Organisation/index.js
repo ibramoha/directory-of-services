@@ -104,7 +104,7 @@ class Organisations extends Component {
           const long = info.longitude
           const getBranches = await this.props.getBranchesFilteredByPostCode({ category, lat, long })
           const orgsData = [];
-          getBranches
+          getBranches.data
             .map(branchs => {
               const { distance } = branchs;
               const orgs = branchs.data;
@@ -138,17 +138,18 @@ class Organisations extends Component {
   render() {
     const { category, postCode, borough, day, organisations } = this.state;
     const role = this.props.user.role ? this.props.user.role : '';
-
     if (this.state.isLoading || orgHelpers.filterOrganisationData.length === 0) {
       return <Spinner />
     }
     return (
       <div>
         <TopNav
-          title={category}
           addLink={`services/${category}/add`}
           titleLink={`services/${category}`}
         />
+        <div className="org-home_title"> 
+          <h2> {category} </h2>
+        </div>
         <Search
           service={category}
           borough={borough}
@@ -165,7 +166,7 @@ class Organisations extends Component {
         <Grid container className="organisation-page" spacing={24} wrap="wrap">
           {orgHelpers.filterOrganisationData(organisations.sort(this.dataOrder()), day, borough).map(org => (
             <Grid item xs={12} sm={6} key={org.id} className='card'> 
-              <OrganisationCard org={org} role={role} />
+              <OrganisationCard org={org} role={role} category={category} />
             </Grid>
           ))
           }

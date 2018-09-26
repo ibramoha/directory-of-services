@@ -2,24 +2,33 @@
   display: flex !important;
   height: 3em;
 }
-a .add-orgonaization-button {
+
+header a .add-organization-button {
   width: 30px ;
   height: 30px ;
   min-height: 30px !important;
-  color: #fff;
+  color: #ebebeb;
   min-width: 25px !important;
   font-size: 22px !important;
-  background: #48cae396;
+  background: transparent;
   box-shadow: 0 0;
 }
-a .add-orgonaization-button:active {
-  box-shadow: 0 0 0 0;
+
+a .add-organization-button:active,
+a .add-organization-button:hover,
+header .add-new-button > a:active,
+header .add-new-button > a:hover {
+  box-shadow: none;
+  background: transparent;
+  color: white;
 }
 
-a .add-orgonaization-button:hover {
-  background-color: #ffffff;
-  color: #1abcd4;
+header .add-organisation-title span { font-size: 70%; }
+
+header svg {
+  font-size: 190%;
 }
+
 .login-section {
   justify-content: flex-end !important;
   display: flex;
@@ -30,9 +39,9 @@ a .add-orgonaization-button:hover {
   color: #e0e0e0;
 }
 
-.add-new-button > a  {
+header .add-new-button > a  {
   text-decoration: navajowhite;
-  color: #fff !important;
+  color: #ebebeb;
   align-items: center;
   display: flex;
   margin-right: 0.5em;

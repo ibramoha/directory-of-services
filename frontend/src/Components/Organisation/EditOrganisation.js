@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import ReactToPrint from "react-to-print";
 import Button from 'material-ui/Button';
 import Dialog, { DialogActions, DialogContent, withMobileDialog, DialogTitle} from 'material-ui/Dialog';
 import { withRouter } from 'react-router-dom';
@@ -8,7 +9,6 @@ import NotificationSystem from 'react-notification-system';
 import { editOrganisation } from '../../actions/postData';
 import OrganisationForm from './OrganisationForm';
 import orgHelpers from './orgHelpers';
-import helpers from '../../helpers';
 import Spinner from '../Spinner';
 import './edit-org.css';
 
@@ -152,7 +152,7 @@ class EditOrganisation extends React.Component {
 
   handleCheckBox = event => {
     const listOfCategories = [...this.state.Categories];
-    orgHelpers.handleCheckBoxProcess(event, listOfCategories)
+    orgHelpers.handleCheckBoxProcess(event, listOfCategories);
     this.setState({
       [event.target.name]: event.target.checked,
       Categories: [...new Set(listOfCategories)],
@@ -162,7 +162,7 @@ class EditOrganisation extends React.Component {
   // Default checkbox selected
   handleDefaultCheckbox = event => { 
     const listOfCategories = [...this.state.Categories];
-    orgHelpers.handleDefaultCheckboxProcess(event, listOfCategories)
+    orgHelpers.handleDefaultCheckboxProcess(event, listOfCategories);
     this.setState({
       [event.target.name]: event.target.value,
       Categories: [...new Set(listOfCategories)],
@@ -185,7 +185,7 @@ class EditOrganisation extends React.Component {
   }
 
   render() {
-    const checkedCategory = helpers.categoryNameMaker(this.props.location.pathname);
+    const checkedCategory = this.state.Categories;
     if (this.state.isLoading) {
       return <Spinner color='blue' bgColor='spinnerEdit' />;
     }
@@ -219,6 +219,10 @@ class EditOrganisation extends React.Component {
             </div>
           </DialogTitle>
           <DialogContent className="edit-content">
+            <ReactToPrint
+              trigger={() => <i className="material-icons" > print </i>}
+              content={() => this.componentRef}
+            />
             <OrganisationForm
               edit
               name={this.state.Organisation}
@@ -247,6 +251,10 @@ class EditOrganisation extends React.Component {
               check={this.state.isChecked}
               handleDefaultCheckbox={this.handleDefaultCheckbox}
               close={this.handleClose}
+              ref={el => { 
+                (this.componentRef=el)
+                return this.componentRef
+                }}
             />
           </DialogContent>
           <DialogActions className="edit-mode-btn">

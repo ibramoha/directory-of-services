@@ -58,3 +58,9 @@
 
 /*  truncate text inside card */
 .org-distance h1 { max-width: 36ch; }
+
+.org-home_title {
+  display: flex;
+  justify-content: space-between;
+  margin: 2rem 1rem;
+}

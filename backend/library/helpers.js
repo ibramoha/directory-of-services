@@ -35,6 +35,46 @@ function flattenBranchArrays(branches) {
   })
 }
 
+// Initial organization schema
+function addOrgSchema(data, category) {
+  return {
+    org_name: data.organisation,
+    website: data.website || '',
+    branch: {
+      borough: data.borough || '',
+      project: data.project || '',
+      tag: data.tag || '',
+      service: [
+        {
+          service: data.service || '',
+          service_days: data.days || '',
+          process: data.process || '',
+          categories: [
+            {
+              cat_name: category
+            }
+          ]
+        }
+      ],
+      address: [
+        {
+          area: data.area || '',
+          address_line: data.address || '',
+          postcode: data.postcode || '',
+          email_address: data.email || '',
+          telephone: data.tel || '',
+          location: [
+            {
+              lat: data.lat || '',
+              long: data.long || ''
+            }
+          ]
+        }
+      ]
+    }
+  };
+}
+
 // Part of calculation distance function
 function deg2rad(deg) {
   return deg * (Math.PI / 180)
@@ -84,5 +124,6 @@ export default {
   flattenBranchArrays,
   flattenBranchData,
   fetchNestedObj,
+  addOrgSchema,
   geoNear
 };

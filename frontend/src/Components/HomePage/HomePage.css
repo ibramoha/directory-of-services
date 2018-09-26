@@ -1,5 +1,73 @@
+.search-input {
+  display: grid;
+  grid-template-columns: 7fr 4fr 1fr;
+  grid-gap: .7rem;
+}
+
+.org-home_title {
+  display: flex;
+  justify-content: space-between;
+  margin: 2rem 1rem;
+}
+
+.org-home_title a > span {
+  font-size: 84%;
+}
+
+.org-home_title a { 
+  text-decoration: none; 
+  color: rgb(0, 188, 212)
+}
+
+.org-home_title a .add-orgonaization-button,
+.org-home_title a .add-orgonaization-button:active  {
+  background: transparent;
+  color: rgb(0, 188, 212);
+  box-shadow: none;
+}
+
+.org-home_title svg { font-size: 134%; }
+
 form div div::before {
   height: 0;
+}
+
+/* Search input border*/
+.search-input .search-text input,
+.search-input .postcode-field input {
+  border: .5px solid rgba(136, 137, 137, 0.68);
+  padding: 15px 20px 15px 3rem;
+  border-radius: 4px;
+  color: rgba(50, 49, 49, 0.9);
+  font-weight: 600;
+}
+
+/*  Home search title  */
+.org-home_title h2,
+.org-home_title {
+  color: rgba(0, 0, 0, .84);
+}
+
+/*  Search inner icon display*/
+.org-home .search-input i {
+  position: absolute;
+  font-size: 150%;
+  color: rgba(136, 137, 137, 0.68);
+  margin-top: 13px;
+  margin-left: 12px
+}
+
+/* Remove underline before and after */
+.search-input .search-text div[aria-autocomplete="list"]::before,
+.search-text div::after,
+.search-input .postcode-field div[aria-autocomplete="list"]::before,
+.postcode-field div::after {
+  background: transparent;
+}
+
+.search-input .search-text input:focus,
+.search-input .postcode-field input:focus {
+  border-color: rgb(26, 188, 212);
 }
 
 div.search {
@@ -36,23 +104,30 @@ i{ cursor: pointer;}
 
 .clear-search{
   cursor: pointer;
-  position: relative;
   background: transparent;
   border: 0;
   height: 10px;
+  position: absolute;
+  right: 0;
+  top: 0;
 }
+
 div.org-home .org-card-info .org-detail-btn button {
-  top: 7.6rem;
+  top: 9.1rem;
   right: 0;
   left: 43%;
 }
 
+.clear-postcode i {
+  right: 0px;
+}
 
 div.org-home .org-card-info .edit-button {
-  top: 7.5rem;
+  top: 9rem;
   right: 0;
   left: 70%;
 }
+
 .clear-search i.material-icons,
 .clear-postcode i.material-icons {
   color: #999;
@@ -61,18 +136,17 @@ div.org-home .org-card-info .edit-button {
 
 .hidden { display: none; }
 
-.search-input{
-  display: grid;
-  grid-template-columns: 4.5fr 4.5fr 1fr;
-  grid-gap: .7rem;
-}
-
 .search-text {
-  display: flex;
+  position: relative;
 }
 
-button.btn-search,
-button.btn-search:hover { background: #1abcd4; }
+.home-btn-search button.btn-search,
+.home-btn-search button.btn-search:hover {
+  background: #1abcd4; 
+  border: .5px solid rgb(26, 188, 212);
+  padding: 15px;
+  width: 100%;
+}
 
 .postcode-field {
   position: relative !important;
@@ -87,12 +161,17 @@ button.btn-search:hover { background: #1abcd4; }
   cursor: pointer;
   outline: none;
   z-index: 100000;
-  right: 0 ;
-  top: 7px ;
+  right: 10px;
+  top: 6px;
 }
 
 @media (max-width: 591px){
   .search-input{
     grid-template-columns: 1fr;
+  }
+
+  /*  Make search btn take full width onn small screen */
+  .home-btn-search {
+    display: inline-grid;
   }
 }

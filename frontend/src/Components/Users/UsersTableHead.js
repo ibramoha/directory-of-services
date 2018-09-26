@@ -38,17 +38,19 @@ class UsersTableHead extends Component {
   };
 
   render() {
-    const { order, orderBy } = this.props;
+    const { params, usersList, order, orderBy } = this.props;
     return (
       <TableHead>
         <TableRow className="users-thead">
           {columnData.map(
             column => (
+              ( column.label ===  params && usersList.length === 1) ? null :
               <TableCell
                 key={column.id}
                 numeric={column.numeric}
                 padding={column.disablePadding ? 'none' : 'default'}
                 sortDirection={orderBy === column.id ? order : false}
+                className={usersList && usersList.length === 1 && 'user-role'}
               >
                 <Tooltip
                   title={`Sort ${column.label}`}
@@ -64,11 +66,11 @@ class UsersTableHead extends Component {
                       {!column.label.includes('Email') ? column.label : false}
                     </Hidden>
                     <Hidden xsDown>
-                      {column.label}
+                      {column.label }
                     </Hidden>
                   </TableSortLabel>
                 </Tooltip>
-              </TableCell>
+              </TableCell> 
             ),
             this,
           )}

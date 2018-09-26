@@ -54,7 +54,7 @@ class AddOrganisation extends Component {
     e.preventDefault();
     const error = this.validate();
     const days = this.state.Day.join(",");
-    const categories = this.state.Categories.join(",");
+    const categories = this.state.Categories;
 
     const data = {
       organisation: this.state.Organisation,

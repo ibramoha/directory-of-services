@@ -96,4 +96,8 @@ button.delete{
   font-size: 1em
 }
 
+.users-info {
+  padding: 3rem 0 3rem 2rem;
+}
+
 /* .MuiInput-underline-238:before */

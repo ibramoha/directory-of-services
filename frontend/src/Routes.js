@@ -7,7 +7,6 @@ import AddOrganisation from './Components/Organisation/AddOrganisation';
 import LandingPage from './Components/LandingPage';
 import SideBar from './Components/SideBar';
 import Users from './Components/Users';
-import UserProfile from './Components/Users/UserProfilePage'
 import HomePage from './Components/HomePage';
 import AuthEndpoint from './utils/AuthEndpoint';
 import Reset from './Components/Users/forgot-password/Reset'
@@ -63,7 +62,7 @@ const Routes = props => {
         />
         <Route exact path="/admindos" component={AuthEndpoint(Users)} />
         <Route exact path="/users/form" component={AuthEndpoint(Users)} />
-        <Route exact path="/user/profile" component={AuthEndpoint(UserProfile)} />
+        <Route exact path="/user/profile" component={AuthEndpoint(Users)} />
       </main>
     </div>
   );

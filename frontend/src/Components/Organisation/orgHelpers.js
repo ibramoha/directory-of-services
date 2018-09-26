@@ -22,16 +22,17 @@ const nonComposedCategories = [
 
 function handleCheckBoxProcess(event, listOfCategories) {
     let index;
+    const target = event.target.value;
       for(let i = 0; i < composedCategories.length; i += 1) {
     // Case where category is checked and category's name is composed
-      if(event.target.checked && composedCategories[i].split(' ').join('').includes(event.target.value)) {
+      if(event.target.checked && composedCategories[i].includes(target)) {
         if(listOfCategories.indexOf(composedCategories[i]) === -1) { 
           listOfCategories.push(composedCategories[i]);              
         }
       } 
           
     // Case where category is not checked and category's name is composed
-      if(!event.target.checked && event.target.value.includes(composedCategories[i].split(' ').join(''))) { 
+      if(!event.target.checked && target.includes(composedCategories[i])) { 
         if(listOfCategories.indexOf(composedCategories[i]) > -1) {
           index = listOfCategories.indexOf(composedCategories[i])
           listOfCategories.splice(index, 1)             
@@ -41,32 +42,37 @@ function handleCheckBoxProcess(event, listOfCategories) {
   
    // Special case 
    // Young people
-      if ( event.target.checked && event.target.value.includes('Young People and Children'.split(' ').join(''))){
-        if(listOfCategories.indexOf('Young People and Children') === -1 || listOfCategories.indexOf('Young People/Children') === -1  ) {
+      if ( event.target.checked && target.includes('Young People and Children')){
+        if(listOfCategories.indexOf('Young People and Children') === -1 ) {
+            listOfCategories.push('Young People/Children')
+          } else if( listOfCategories.indexOf('Young People/Children') === -1  ) {
             listOfCategories.push('Young People/Children')
           }
       }
   
-      if ( !event.target.checked && event.target.value.includes('Young People and Children'.split(' ').join(''))){
-        if(listOfCategories.includes('Young People and Children') || listOfCategories.includes('Young People/Children')) {        
-          index = listOfCategories.indexOf('Young People and Children') || listOfCategories.indexOf('Young People/Children');
+      if ( !event.target.checked && target.includes('Young People and Children')){
+        if(listOfCategories.includes('Young People and Children')) {        
+          index = listOfCategories.indexOf('Young People and Children');
           listOfCategories.splice(index, 1);
-        } 
+        } else if( listOfCategories.includes('Young People/Children')) {        
+          index = listOfCategories.indexOf('Young People/Children');
+          listOfCategories.splice(index, 1);
+        }  
       }  
   
       //  nonComposedCategories name
       for(let i = 0; i < nonComposedCategories.length; i += 1) {
       // Case where category is checked and category's name is not composed    
-        if(event.target.checked && event.target.value.includes(nonComposedCategories[i].split(' ').join(''))){
-          if(listOfCategories.indexOf(event.target.value) === -1 ) {
-            listOfCategories.push(event.target.value);              
+        if(event.target.checked && target.includes(nonComposedCategories[i])){
+          if(listOfCategories.indexOf(target) === -1 ) {
+            listOfCategories.push(target);              
           } 
         }
   
       // Case where category is not checked and category's name is not composed
-        if(!event.target.checked && event.target.value.includes(nonComposedCategories[i].split(' ').join(''))){
-          if(listOfCategories.indexOf(event.target.value) > -1) {
-            index = listOfCategories.indexOf(event.target.value)
+        if(!event.target.checked && target.includes(nonComposedCategories[i])){
+          if(listOfCategories.indexOf(target) > -1) {
+            index = listOfCategories.indexOf(target)
             listOfCategories.splice(index, 1)
           }
         }
@@ -74,17 +80,18 @@ function handleCheckBoxProcess(event, listOfCategories) {
   }
 
 function handleDefaultCheckboxProcess(event, listOfCategories) {
-    let index;    
+    let index;  
+    const target = event.target.value;
     for(let i = 0; i < composedCategories.length; i += 1) {
 // Case where category is checked and category's name is composed
-    if(event.target.checked && composedCategories[i].includes(event.target.value)) {
+    if(event.target.checked && composedCategories[i].includes(target)) {
     if(listOfCategories.indexOf(composedCategories[i]) === -1) { 
         listOfCategories.push(composedCategories[i]); 
     } 
     } 
         
 // Case where category is not checked and category's name is composed
-    if(!event.target.checked && event.target.value.includes(composedCategories[i])) { 
+    if(!event.target.checked && target.includes(composedCategories[i])) { 
     if(listOfCategories.indexOf(composedCategories[i]) > -1) {
         index = listOfCategories.indexOf(composedCategories[i])
         listOfCategories.splice(index, 1);
@@ -92,34 +99,39 @@ function handleDefaultCheckboxProcess(event, listOfCategories) {
     } 
     }
 
-// Special case 
-// Young people
-    if ( event.target.checked && event.target.value.includes('Young People and Children')){  
-    if(listOfCategories.indexOf('Young People and Children') === -1 || listOfCategories.indexOf('Young People/Children') === -1 ) {
-        listOfCategories.push('Young People/Children');
-        }
-    }
-
-    if ( !event.target.checked && event.target.value.includes('Young People and Children')){
-    if(listOfCategories.includes('Young People and Children') || listOfCategories.includes('Young People/Children')) {        
-        index = listOfCategories.indexOf('Young People and Children') || listOfCategories.indexOf('Young People/Children');
-        listOfCategories.splice(index, 1);
-    } 
-    }  
+   // Special case 
+   // Young people
+      if ( event.target.checked && target.includes('Young People and Children')){
+        if(listOfCategories.indexOf('Young People and Children') === -1 ) {
+            listOfCategories.push('Young People/Children')
+          } else if( listOfCategories.indexOf('Young People/Children') === -1  ) {
+            listOfCategories.push('Young People/Children')
+          }
+      }
+  
+      if ( !event.target.checked && target.includes('Young People and Children')){
+        if(listOfCategories.includes('Young People and Children')) {        
+          index = listOfCategories.indexOf('Young People and Children');
+          listOfCategories.splice(index, 1);
+        } else if( listOfCategories.includes('Young People/Children')) {        
+          index = listOfCategories.indexOf('Young People/Children');
+          listOfCategories.splice(index, 1);
+        }  
+      } 
     
 // nonComposedCategories name
     for(let i = 0; i < nonComposedCategories.length; i += 1) {
     // Case where category is checked and category's name is not composed
-    if(event.target.checked && event.target.value.includes(nonComposedCategories[i].split(' ').join(''))){
-        if(listOfCategories.indexOf(event.target.value) === -1 ) {
-        listOfCategories.push(event.target.value);              
+    if(event.target.checked && target.includes(nonComposedCategories[i])){
+        if(listOfCategories.indexOf(target) === -1 ) {
+        listOfCategories.push(target);              
         } 
     }
 
     // Case where category is not checked and category's name is not composed
-    if(!event.target.checked && event.target.value.includes(nonComposedCategories[i].split(' ').join(''))){
-        if(listOfCategories.indexOf(event.target.value) > -1) {
-        index = listOfCategories.indexOf(event.target.value)
+    if(!event.target.checked && target.includes(nonComposedCategories[i])){
+        if(listOfCategories.indexOf(target) > -1) {
+        index = listOfCategories.indexOf(target)
         listOfCategories.splice(index, 1)
         }
     }

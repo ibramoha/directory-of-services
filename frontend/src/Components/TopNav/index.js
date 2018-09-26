@@ -92,9 +92,10 @@ class TopNav extends Component {
                 </Link>
                 {addOrg || homePage || (role !== 'Admin' && role !== 'Editor') || this.props.userProfile ? null :
                   (
-                    <Link to={`/${addLink}`} className="add-orgnaization">
+                    <Link to={`/${addLink}`} className="add-organization">
+                      <span> Add a project </span>
                       <Button
-                        className="add-orgonaization-button"
+                        className="add-organization-button"
                         variant="fab"
                         aria-label="add"
                       >

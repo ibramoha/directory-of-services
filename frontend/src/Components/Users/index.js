@@ -6,7 +6,6 @@ import NotificationSystem from 'react-notification-system';
 import { getListOfUsers} from '../../actions/getApiData';
 import TopNav from '../TopNav';
 import AddUser from './AddUser';
-import UserProfile from './UserProfilePage'
 import UsersListTable from './UsersListTable';
 
 import './users.css';
@@ -49,7 +48,7 @@ class UsersPage extends Component {
 
   render() {
     const users = this.props.listOfUsers.users ? this.props.listOfUsers.users : [] ;
-    const user= this.props.user? this.props.user: '';
+    const user= this.props.user? [this.props.user]: '';
     const role = this.props.user.role ? this.props.user.role : '';
     let userForm;
     let userList;
@@ -57,15 +56,16 @@ class UsersPage extends Component {
     const isAddUsersPage = params && params.includes('form');
     const isProfile = params && params.match('admindos');
     const { hideForm } = this.state;
-    if ((params && params.match('/admindos') &&  role === 'Admin') || isProfile) {
+    if ((params && params.match("/admindos") &&  role === "Admin") || isProfile) {
       userList = (
         <UsersListTable
           usersList={users}
         />)
-    } else {
+    } else if (params && params.match("/user/profile")){
       userList = (
-        <UserProfile
+        <UsersListTable
           usersList={user}
+          params={params}
         />
       );
     }

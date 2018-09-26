@@ -11,7 +11,6 @@ import TextFieldOrg from './TextFieldOrg';
 import BoroughData from '../../Data/Boroughs.json';
 // categories ---> static categories list stored locally  in data folder
 import categories from '../../Data/Categories.json';
-import helpers from '../../helpers';
 
 const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 const areas = [{ id: 1, area: 'North London' }, { id: 2, area: 'South London' }, { id: 3, area: 'West London' }, { id: 4, area: 'Central London' }, { id: 5, area: 'East London' }, { id: 6, area: 'Anywhere' }, { id: 7, area: 'Bristol' },
@@ -26,8 +25,11 @@ const sortedBorough = BoroughData.sort(((a, b) => {
 }));
 
 const OrganisationForm = (props) => {
-  const checkedCategory = helpers.addSpaceToCategName(categories, props.checkedCategory);
-
+  const { checkedCategory } =  props;
+  const index = checkedCategory.indexOf('Young People/Children');
+  if (index > -1) {
+    checkedCategory[index] = 'Young People and Children';
+  }
   // I create a collection of days which combine days from days array and props.day and return unique value (no repetition of day )
   // then I made a copy of this collection using spread operator
   const uniqueDays = new Set([...days]);
@@ -268,21 +270,21 @@ const OrganisationForm = (props) => {
       </Grid>
       <h4 className="add-org-title categories-checkbox-title mt">Categories</h4>
       <div className="add-categories-checkbox categories-checkbox">
-        {categories.map(category => helpers.linkMaker(category) === props.checkedCategory ?
+        {categories.map(category => checkedCategory.includes(category) ?
           (
             <Fragment key={category}>
               <FormControlLabel
                 className="checkbox"
                 control={
                   <Checkbox
-                    checked={props.check}
+                    checked
                     onChange={props.handleDefaultCheckbox}
-                    value={`${checkedCategory}`}
+                    value={`${category}`}
                     className="checkbox-color"
                   />
                 }
-                label={checkedCategory}
-                name={`${checkedCategory}`}
+                label={category}
+                name={`${category}`}
               />
             </Fragment>
           ) : (
@@ -292,12 +294,12 @@ const OrganisationForm = (props) => {
                 control={
                   <Checkbox
                     onChange={props.handleCheckBox}
-                    value={helpers.linkMaker(category)}
+                    value={(category)}
                     className="checkbox-color"
                   />
                 }
                 label={category}
-                name={helpers.linkMaker(category)}
+                name={(category)}
               />
             </Fragment>
           ))}

@@ -116,7 +116,6 @@ class UsersListTable extends Component {
     const { selected } = this.state;
     const selectedIndex = selected.indexOf(id);
     let newSelected = [];
-
     if (selectedIndex === -1) {
       newSelected = newSelected.concat(selected, id);
     } else if (selectedIndex === 0) {
@@ -164,8 +163,10 @@ class UsersListTable extends Component {
   
   render() {
     const { data, order, orderBy, selected, rowsPerPage, page } = this.state;
+    const usersList = data.length > 1 ? data : this.props.usersList;
     const emptyRows = null;
-    const { editIdx } = this.state;
+    const { editIdx } = this.state; 
+    
     return (
       <Fragment>
         <NotificationSystem ref="savedChanges" />
@@ -177,9 +178,11 @@ class UsersListTable extends Component {
             onSelectAllClick={this.handleSelectAllClick}
             onRequestSort={this.handleRequestSort}
             rowCount={data.length}
+            params='Actions'
+            usersList={usersList}
           />
           <TableBody className="users-tbody">
-            {data
+            {usersList
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map(row => {
                 const currentlyEditing = editIdx === row.id;
@@ -238,16 +241,17 @@ class UsersListTable extends Component {
                     <TableCell className="user-text">{row.organisation}</TableCell>
                   </Hidden>
                   <TableCell className="user-text">{row.role? row.role : 'None'}</TableCell>
+                  {this.props.params === "/user/profile"? null :
                   <TableCell className="user-text">
                     <Button onClick={() => this.startEditing(row.id, row)} raised="true">
-                      <i className="material-icons">edit</i>
+                      <i className="material-icons">edit</i>Edit
                     </Button>
                     <Notification
                       value={row.fullname}
                       title='USER'
                       userId={row.id}
                     />
-                  </TableCell>
+                  </TableCell>}
                 </TableRow>
               );
             })}
@@ -261,24 +265,26 @@ class UsersListTable extends Component {
               </TableRow>
               )}
           </TableBody>
-          <TableFooter className="users-tfoot">
-            <TableRow>
-              <TablePagination
-                colSpan={6}
-                count={data.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                backIconButtonProps={{
-                  'aria-label': 'Previous Page',
-                }}
-                nextIconButtonProps={{
-                  'aria-label': 'Next Page',
-                }}
-                onChangePage={this.handleChangePage}
-                onChangeRowsPerPage={this.handleChangeRowsPerPage}
-              />
-            </TableRow>
-          </TableFooter>
+          {this.props.params !== "/user/profile" && 
+            <TableFooter className="users-tfoot">
+              <TableRow>
+                <TablePagination
+                  colSpan={6}
+                  count={data.length}
+                  rowsPerPage={rowsPerPage}
+                  page={page}
+                  backIconButtonProps={{
+                    'aria-label': 'Previous Page',
+                  }}
+                  nextIconButtonProps={{
+                    'aria-label': 'Next Page',
+                  }}
+                  onChangePage={this.handleChangePage}
+                  onChangeRowsPerPage={this.handleChangeRowsPerPage}
+                />
+              </TableRow>
+            </TableFooter>
+          }
         </Table>
       </Fragment>
     );

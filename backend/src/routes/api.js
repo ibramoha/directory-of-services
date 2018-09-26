@@ -1,6 +1,7 @@
 import express from 'express';
 import { postOrganisation, editOrganisation, deleteBranch } from '../controllers/post_controller';
 import { seedData } from '../controllers/postInitialData';
+import helpers from '../../library/helpers'
 import {
   getAllOrgainisation,
   getListOfCategories,
@@ -40,49 +41,26 @@ router.post('/organisation/add', async (req, res) => {
     if (!data.organisation || !data.categories) {
       throw new Error('REQUIRED_DATA_NOT_SUPPLIED');
     }
-    const graph = {
-      org_name: data.organisation,
-      website: data.website || '',
-      branch: {
-        borough: data.borough || '',
-        project: data.project || '',
-        tag: data.tag || '',
-        service: [
-          {
-            service: data.service || '',
-            service_days: data.days || '',
-            process: data.process || '',
-            categories: [
-              {
-                cat_name: data.categories
-              }
-            ]
-          }
-        ],
-        address: [
-          {
-            area: data.area || '',
-            address_line: data.address || '',
-            postcode: data.postcode || '',
-            email_address: data.email || '',
-            telephone: data.tel || '',
-            location: [
-              {
-                lat: data.lat || '',
-                long: data.long || ''
-              }
-            ]
-          }
-        ]
-      }
-    };
-
-    await postOrganisation(graph);
-    res.status(200).json({
-      success: true,
-      message: 'The organisation has been saved successfuly',
-      data: graph
-    });
+    if (data.categories.length > 1) {
+      data.categories.map(async category => {
+        const graph = helpers.addOrgSchema(data, category);
+        await postOrganisation(graph);
+        res.status(200).json({
+          success: true,
+          message: 'The organisation has been saved successfully',
+          data: graph
+        });
+      })
+    } else {
+      const category = data.categories[0]
+      const graph = helpers.addOrgSchema(data, category);
+      await postOrganisation(graph);
+      res.status(200).json({
+        success: true,
+        message: 'The organisation has been saved successfully',
+        data: graph
+      });
+    }
   } catch (err) {
     res.status(502).json({
       success: false,

@@ -49,9 +49,13 @@ const OrganisationCard = ({
     }
     <div className="org-card-services">
 
+      {org.clients && org.clients.length > 1? <p> <span className="title"> <img src="https://png.icons8.com/material-outlined/17/1abcd4/gender-neutral-user.png" alt="administrative-tools" className="material-icons org-card-icon" /> </span> {org.clients}</p>
+      :
+      <p> <span className="title"> <img src="https://png.icons8.com/material-outlined/17/1abcd4/gender-neutral-user.png" alt="administrative-tools" className="material-icons org-card-icon" /> </span><span className="not-available">Add clientss ...</span></p>}
+
       {org.service.length > 1? <p> <span className="title"> <img src="https://png.icons8.com/material/17/1abcd4/administrative-tools.png" alt="administrative-tools" className="material-icons org-card-icon" /> </span> {org.service}</p>
       :
-      <p> <span className="title"> <img src="https://png.icons8.com/material/17/1abcd4/administrative-tools.png" alt="administrative-tools" className="material-icons org-card-icon" /> </span>Add services ...</p>}
+      <p> <span className="title"> <img src="https://png.icons8.com/material/17/1abcd4/administrative-tools.png" alt="administrative-tools" className="material-icons org-card-icon" /> </span><span className="not-available">Add services ...</span></p>}
 
       {org.process.length > 1? <p> <span className="title"> <i className="material-icons org-card-icon">access_time</i> </span> {org.process.replace(/\s+/g, " ")} </p>
       :

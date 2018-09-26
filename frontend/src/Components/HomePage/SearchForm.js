@@ -6,10 +6,13 @@ import helpers from '../../helpers';
 import styles from './style'
 
 function SearchForm(props){
+    const clearSearchByKeywordBtn = props.value.length < 1 || props.isHidden;
+    const clearSearchByPostcodeBtn = props.postCode.length < 1 || !props.isPostcode;
     const { classes } = props;
     return  (
       <Grid item xs={12} className="search-input">
         <div className="search-text">
+          <i className="material-icons search-icon">search</i>
           <Autosuggest
             theme={{
                         container: classes.container,
@@ -36,19 +39,19 @@ function SearchForm(props){
             variant="raised"
             size="small"
             color="secondary"
-            className={props.isHidden ? 'hidden' : 'clear-search'}
+            className={clearSearchByKeywordBtn ? 'hidden' : 'clear-search'}
             onClick={props.clearSearchField}
           >
             <i
-              className="material-icons"
+              className="material-icons clear-icon"
               size="small"
               variant="raised"
             >
-                        close
+              close
             </i>
           </button>
         </div>
-        <span className="postcode-field">
+        <div className="postcode-field">
           <Autosuggest
             theme={{
                         container: classes.container,
@@ -77,7 +80,7 @@ function SearchForm(props){
             variant="raised"
             size="small"
             color="secondary"
-            className={!props.isPostcode ? 'hidden' : 'clear-postcode'}
+            className={clearSearchByPostcodeBtn ? 'hidden' : 'clear-postcode'}
             onClick={props.clearPostcodeField}
           >
             <i
@@ -85,19 +88,21 @@ function SearchForm(props){
               size="small"
               variant="raised"
             >
-                        close
+              close
             </i>
           </button>
-        </span>
-        <Button
-          onClick={props.updateSearchData}
-          variant="raised"
-          color="primary"
-          size="small"
-          className="btn-search"
-        >
-                    Search
-        </Button>
+        </div>
+        <div className="home-btn-search">
+          <Button
+            onClick={props.updateSearchData}
+            variant="raised"
+            color="primary"
+            size="small"
+            className="btn-search"
+          >
+          Search
+          </Button>
+        </div>
       </Grid>
     )
 }

@@ -16,6 +16,10 @@
   margin-left: 2.8rem;
 }
 
+.users-thead th.user-role div {
+  margin-left: 0;
+}
+
 .users-thead,
 .users-tbody tr td div div:after {
   background-color: #1abcd4;
@@ -43,6 +47,22 @@
   text-align: left;
   border-bottom: 1px solid rgba(69, 189, 212, 0.29);
   padding: 0px 6px 0px 25px;
+}
+
+.users-tfoot td div {
+  display: flex;
+  justify-content: center;
+}
+
+.users-tfoot td div div,
+.users-tfoot td div span {
+  display: none;
+}
+
+.users-tfoot td div div:last-child,
+.users-tfoot td div span:last-child {
+  display: block;
+  color: black;
 }
 
 .users-tbody .edit-user-button,

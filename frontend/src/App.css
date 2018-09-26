@@ -1,9 +1,22 @@
 * {
   margin: 0;
   padding: 0;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
-    'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-  box-sizing: border-box;
+ box-sizing: border-box;
+}
+
+body {
+   font-family: 'Montserrat',
+   sans-serif,
+   'Lucida Sans',
+   'Lucida Sans Regular',
+   'Lucida Grande',
+   'Lucida Sans Unicode',
+   Geneva,
+   Verdana,
+   sans-serif;
+   font-weight: 400;
+   font-size: 1rem;
+   line-height: 1.2;
 }
 
 /*  color for text title and icons */
@@ -15,3 +28,9 @@ h1, h2, h3, .organisation-page .material-icons, .categories-checkbox svg, #menu-
     font-size: 1rem;
     margin-right: -20px;
   }
+
+@media (max-width: 710px) {
+  body {
+    font-size: 14px;
+  }
+}
