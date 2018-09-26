@@ -13,6 +13,7 @@ import {
   getBranchesByPostcode,
   getSingleBranch
 } from '../controllers/get_controller';
+import helpers from '../../library/helpers';
 
 const router = express.Router();
 
@@ -74,59 +75,55 @@ router.put('/organisation/edit', async (req, res) => {
   const { branchId } = req.body;
   const { orgId } = req.body;
   const data = req.body;
-  const graph = {
-    id: orgId,
-    org_name: data.organisation,
-    website: data.website,
-    branch: [
-      {
-        id: branchId,
-        borough: data.borough,
-        project: data.project,
-        tag: data.tag,
-        clients: data.clients,
-        address: [
-          {
-            id: data.addressId,
-            address_line: data.address,
-            area: data.area,
-            postcode: data.postcode,
-            email_address: data.email,
-            telephone: data.tel,
-            location: [
-              {
-                lat: data.lat,
-                long: data.long
-              }
-            ]
-          }
-        ],
-        service: [
-          {
-            id: data.serviceId,
-            service_days: data.days,
-            service: data.service,
-            process: data.process,
-            categories: [
-              {
-                cat_name: data.categories
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  };
-
   try {
-    await editOrganisation(graph, orgId, branchId);
-    return res.status(200).json({
-      success: true,
-      message: 'The organisation has been updated successfully',
-      data
-    });
+    if (data.categories.length > 1) {
+      const { originalCategory } = data
+      if (originalCategory.length > 0) {
+        // If there is default category and new list of categories
+        // Edit the default category with it new content
+        const graph = helpers.editOrgSchema(data, orgId, branchId, originalCategory)
+        const editOriginalBranch = await editOrganisation(graph, orgId, branchId);
+
+        // Create new branches for new list of categories with same content accept the categories
+        const addNewBranches = await data.categories.filter(category => category !== originalCategory)
+          .map(async category => {
+            const addGraph = helpers.addOrgSchema(data, category);
+            const response = await postOrganisation(addGraph);
+            return response;
+          })
+
+        res.status(200).json({
+          success: true,
+          message: 'The organisation has been updated successfully',
+          editOriginalBranch,
+          addNewBranches
+        })
+
+      } else {
+        // If there is only new list of categories
+        data.categories.map(async category => {
+          const graph = helpers.addOrgSchema(data, category);
+          const response = await postOrganisation(graph);
+          res.status(200).json({
+            success: true,
+            message: 'The organisation has been updated successfully',
+            response
+          })
+        })
+      }
+    } else {
+      // If there is only one category
+      const category = data.categories[0]
+      const graph = helpers.editOrgSchema(data, orgId, branchId, category)
+      const response = await editOrganisation(graph, orgId, branchId);
+      res.status(200).json({
+        success: true,
+        message: 'The organisation has been updated successfully',
+        response
+      });
+    }
   } catch (err) {
-    return res.status(502).json({
+    res.status(502).json({
       success: false,
       message: 'The organisation did not save!',
       err: err.message

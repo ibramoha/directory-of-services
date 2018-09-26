@@ -26,6 +26,7 @@ class EditOrganisation extends React.Component {
       Email: "",
       Website: "",
       Categories: [],
+      originalCategory: "",
       project: '',
       tag: '',
       postcode: '',
@@ -55,7 +56,6 @@ class EditOrganisation extends React.Component {
       if (data.cat_name.includes('Young People/Children') || data.cat_name.includes('Young People and Children')){
         categories.push('Young People/Children');    
       }
-
       this.setState({
         branchId: data.branch_id,
         orgId: data.org_id,
@@ -71,6 +71,7 @@ class EditOrganisation extends React.Component {
         Email: data.email_address,
         Website: data.website,
         Categories: [...new Set(categories)],
+        originalCategory: data.cat_name,
         project: data.project,
         tag: data.tag,
         postcode: data.postcode,
@@ -104,7 +105,7 @@ class EditOrganisation extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault();
     const days = this.state.Day.join(' ');
-    const categories = this.state.Categories.join(' ');
+    const categories = this.state.Categories;
     const orgData = {
       branchId: this.state.branchId,
       serviceId: this.state.serviceId,
@@ -120,6 +121,7 @@ class EditOrganisation extends React.Component {
       email: this.state.Email,
       website: this.state.Website,
       categories: categories,
+      originalCategory: this.state.originalCategory,
       address: "not provided",
       lat: "not provided",
       long: "not provided",
